@@ -27,3 +27,5 @@ To try it out, try `python3 dyndns.py`. You might need to run `pip install reque
 
 Then to have it update on a regular schedule, add a cron job for it!
 See [crontab(5)](https://man.archlinux.org/man/crontab.5.en) for instructions and examples.
+
+Or, if you are lazy, check out [crontab.guru](https://crontab.guru/)
