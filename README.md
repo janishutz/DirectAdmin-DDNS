@@ -2,28 +2,28 @@
 Want to attach your home server to a subdomain but don't know how?
 Use this either of these scripts with a cronjob to dynamically update your DNS records!
 
-## PHP Setup
-ssh to your home server and make sure deps are installed, such as `php php-curl`.
+Create a file in `/opt/dyndns/credentials.json` or in the current directory.
 
 ```
-# git clone https://github.com/shoaloak/DirectAdmin-DDNS /opt/dyndns
-# vi /opt/dyndns/credentials.json
-# cat /opt/dyndns/credentials.json
 {
 	"username": "myusername",
 	"password": "mypassword",
 	"hostname": "webXXXX.zxcs.nl",
 	"domain": "mydomain.com",
-	"subdomain": "mysubdomain"
+	"port": "2222",
+	"subdomains": [
+        {
+            "subdomain": "mysubdomain",
+            "action": "edit" // or add or delete
+        }
+    ]
 }
-# whereis php # <php location>, usually /usr/bin/php
-# crontab -e
-* * * * * <php location> /opt/dyndns/dyndns.php
 ```
+If you have 2FA enabled, create a login key with only access to `CMD_API_DNS_CONTROL`.
+Make sure to create a strong password.
 
-## Python
-Almost same as PHP: `python3 dyndns.py`. Might need `pip install requests`.
+## Running it
+To try it out, try `python3 dyndns.py`. You might need to run `pip install requests`.
 
-## Sources
-* Based on [this forum post](https://www.vimexx.nl/forum/14-tutorials/588-dyndns-mogelijk-via-directadmin-api-bij-vimexx?page=1#post-2323).
-* Shamelessly mirroring [httpsocket.php](https://files.directadmin.com/services/all/httpsocket/)
+Then to have it update on a regular schedule, add a cron job for it!
+See [crontab(5)](https://man.archlinux.org/man/crontab.5.en) for instructions and examples.
